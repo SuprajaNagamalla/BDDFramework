@@ -1,0 +1,30 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# IDEs
+.idea/
+.eclipse
+.classpath
+.project
+.settings/
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+*.impl
+
+# Build files
+target/
+build/
+
+# Runner
+**/RACParallelTestRunner.java
+
+# Logs & Reports
+logs/
+test-output/
+test-output-thread/
+
+

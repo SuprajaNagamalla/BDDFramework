@@ -1,0 +1,25 @@
+# GitLab CI: just “mvn clean test” with Java 11 + Chrome + Chromedriver
+image: markhobson/maven-chrome:jdk-11      # JDK 11 • Maven 3.9 • Chrome + Chromedriver 133 :contentReference[oaicite:0]{index=0}
+ 
+stages:
+  - test
+ 
+variables:
+  MAVEN_CLI_OPTS: "-B -e -V"               # batch mode, show errors & versions
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2"
+ 
+cache:                                     # speed up builds by caching dependencies
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .m2/repository
+ 
+test-job:
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS clean test       # your framework handles headless flags
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: manual
+
